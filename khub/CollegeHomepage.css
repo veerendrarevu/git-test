@@ -1,0 +1,93 @@
+.college-homepage-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 90px;
+    margin: 0;
+    padding: 60px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #d9d9d980;
+    border: 1px solid #6a9c80;
+    border-radius: 8px;
+    width: 240px; /* Adjusted width */
+    height: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
+.card-header {
+    background-color: #6a9c80;
+    padding: 15px;
+    color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.card-header p {
+    margin: 5px 0 0;
+    font-size: 16px;
+}
+
+.card-body {
+    padding: 20px;
+    background-color: #d9d9d980;
+}
+
+.card-body p {
+    margin: 5px 0;
+    color: #424242;
+}
+
+.card-body .assignment {
+    font-weight: bold;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #d9d9d980;
+    margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .college-homepage-container {
+        flex-direction: column; /* Stack cards vertically */
+        align-items: center; /* Center-align the cards */
+        gap: 20px; /* Reduce the gap between cards */
+        padding: 20px; /* Adjust padding for smaller screens */
+    }
+
+    .card {
+        width: 100%; /* Cards take full width */
+        max-width: 320px; /* Limit the maximum width */
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .card-header h3 {
+        font-size: 18px; /* Adjust font size for smaller screens */
+    }
+
+    .card-header p {
+        font-size: 14px;
+    }
+
+    .card-body {
+        padding: 15px; /* Adjust padding */
+    }
+
+    .card-body p {
+        font-size: 14px;
+    }
+}
