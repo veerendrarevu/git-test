@@ -1,0 +1,152 @@
+.footer {
+    height: 170px; /* Reduced height */
+    background: linear-gradient(90deg, #16423C 0%, #38A899 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 30px;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-grow: 1; 
+  }
+  
+  .left-section {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .footer-logo {
+    height: 40px;
+    margin-bottom: 5px;
+  }
+  
+  .middle-section {
+    flex: 2;
+    text-align: center;
+  }
+  
+  .footer-heading {
+    font-size: 1.2rem;
+    margin-bottom: 10px; /* Added margin for spacing */
+  }
+  
+  .footer-text {
+    font-size: 0.9rem;
+    color: #bbb;
+    margin-bottom: 10px;
+    line-height: 1.4; /* Adjust line height for better readability */
+    white-space: normal; /* Allow the text to wrap */
+    word-wrap: break-word; /* Ensure long words break onto the next line */
+    max-width: 320px; /* Optional: limit the width to avoid text being too wide */
+    margin: 0 auto; /* Center the text */
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .social-links a {
+    color: #fff;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+  
+  .social-links a:hover {
+    color: #f0f0f0;
+  }
+  
+  /* Right section with contact cards aligned side by side */
+  .right-section {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .contact-card {
+    background-color: #C4DAD2;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    color: #333333;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+    width: 140px;  /* Keep the width as it is */
+    height: 100px; /* Decrease the height to 100px or adjust as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .contact-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+  
+    .right-section {
+      flex-direction: row;
+      justify-content: center;
+      gap: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer {
+      padding: 10px;
+    }
+  
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    @media (max-width: 480px) {
+        .contact-card {
+          width: 100px;  /* Adjust width for smaller screens */
+          height: 100px; /* Ensure height matches width to maintain the square shape */
+          padding: 8px;
+        }
+      
+        .contact-icon {
+          font-size: 18px;  /* Reduce icon size on smaller screens */
+        }
+      }
+    .footer-heading {
+      font-size: 1rem;
+    }
+  
+    .footer-text {
+      font-size: 0.8rem;
+    }
+  }
+  
