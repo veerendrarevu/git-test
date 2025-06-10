@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../../models/admin/UploadBooks');
+const Order = require("../../models/BookOrder");
+
 
 // GET route to fetch books data
-router.get('/books', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const books = await Book.find();
     res.json(books);
@@ -13,97 +15,76 @@ router.get('/books', async (req, res) => {
   }
 });
 
-// GET route to fetch detective books data
-router.get('/books/detective', async (req, res) => {
+// PUT route to edit a book
+router.put('/:id', async (req, res) => {
   try {
-    const detectiveBooks = await Book.find({ genre: 'Detective' });
-    res.json(detectiveBooks);
+    const { image, pdf, title, author, description, price } = req.body;
+
+    // Create an update object dynamically
+    const updatedFields = { title, author, description, price };
+
+    // Update `image` and `pdf` if provided
+    if (image) updatedFields.image = image;
+    if (pdf) updatedFields.pdf = pdf;
+
+    const updatedBook = await Book.findByIdAndUpdate(
+      req.params.id,
+      { $set: updatedFields },
+      { new: true }
+    );
+
+    res.json(updatedBook);
   } catch (error) {
-    console.error('Error fetching detective books:', error);
+    console.error('Error updating book:', error);
     res.status(500).json({ message: error.message });
   }
 });
 
-router.get('/books/Fantasy', async (req, res) => {
+// DELETE route to delete a book
+router.delete('/:id', async (req, res) => {
   try {
-    const FantasyBooks = await Book.find({ genre: 'Fantasy' });
-    res.json(FantasyBooks);
+    await Book.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Book deleted successfully' });
   } catch (error) {
+    console.error('Error deleting book:', error);
     res.status(500).json({ message: error.message });
   }
 });
 
-router.get('/books/History', async (req, res) => {
+
+// Get all orders
+router.get("/orders", async (req, res) => {
+  console.log("Hello")
   try {
-    const HistoryBooks = await Book.find({ genre: 'History' });
-    res.json(HistoryBooks);
+    const orders = await Order.find();
+    res.json(orders);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-router.get('/books/Love', async (req, res) => {
-  try {
-    const LoveBooks = await Book.find({ genre: 'Love' });
-    res.json(LoveBooks);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-router.get('/books/Novel', async (req, res) => {
-  try {
-    const NovelBooks = await Book.find({ genre: 'Novel' });
-    res.json(NovelBooks);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-router.get('/books/ScienceFiction', async (req, res) => {
-  try {
-    const scifiBooks = await Book.find({ genre: 'ScienceFiction' });
-    res.json(scifiBooks);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// GET route to search books by genre or title
-router.get('/books/search', async (req, res) => {
-  const { query } = req.query;
-
-  if (!query || query.trim() === "") {
-    return res.status(400).json({ message: "Search query is required" });
-  }
+// Update order status
+router.put("/orders/:id", async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
 
   try {
-    const books = await Book.find({
-      $or: [
-        { genre: { $regex: query, $options: "i" } }, // Case-insensitive search in genre
-        { title: { $regex: query, $options: "i" } }  // Case-insensitive search in title
-      ]
-    }).select('title'); // Return only the title field
+    const updatedOrder = await Order.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
 
-    res.json(books);
-  } catch (error) {
-    console.error('Error searching books:', error);
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// GET route to fetch book details by ID
-router.get('/books/:id', async (req, res) => {
-  try {
-    const book = await Book.findById(req.params.id);
-    if (!book) {
-      return res.status(404).json({ message: 'Book not found' });
+    if (!updatedOrder) {
+      return res.status(404).json({ error: "Order not found" });
     }
-    res.json(book);
+
+    res.json(updatedOrder);
   } catch (error) {
-    console.error('Error fetching book by ID:', error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+module.exports = router;
 
 module.exports = router;
