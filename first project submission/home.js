@@ -1,14 +1,15 @@
 const express = require("express");
-const Book = require("../../models/home");
+const Book = require("../../models/home.js");
 const router = express.Router();
 
-// Get all books (For Users)
-router.get("/books", async(req, res) => {
+// Add a new book (Admin Only)
+router.post("/add-book", async(req, res) => {
     try {
-        const books = await Book.find();
-        res.json(books);
+        const newBook = new Book(req.body);
+        await newBook.save();
+        res.json({ message: "✅ Book added successfully" });
     } catch (error) {
-        res.status(500).json({ message: "❌ Error fetching books", error });
+        res.status(500).json({ message: "❌ Error adding book", error });
     }
 });
 
